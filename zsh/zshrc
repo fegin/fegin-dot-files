@@ -135,7 +135,6 @@ alias gita="git add"
 
 ulimit -c unlimited
 
-if [[ -e ../private ]] then
-do
+if [ -e ../private ] ;then
     source ../private/zshrc
-done
+fi

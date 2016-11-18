@@ -1,8 +1,20 @@
+#!/usr/bin/env bash
+
+# Install private repo
+echo -n "Do you have a private repo to install first? (y/n) "
+read answer
+if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+    echo -n "What's the path? "
+    read private_path
+    git clone $private_path private
+fi
+
+exit 0
 # Install .gitconfig
-echo "User name for GIT:"
-read $git_username
-echo "Email for GIT:"
-read $git_email
+echo -n "User name for GIT:"
+read git_username
+echo -n "Email for GIT:"
+read git_email
 cp gitconfig active_gitconfig
 sed -i "s/NAME/${git_username}" active_gitconfig 
 sed -i "s/EMAIL/${git_email}" active_gitconfig 
