@@ -1,0 +1,141 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="candy"
+
+# Uncomment this to disable bi-weekly auto-update checks
+DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how often before auto-updates occur? (in days)
+export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable autosetting terminal title.
+DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Uncomment following line if you want to disable marking untracked files under
+# VCS as dirty. This makes repository status check for large repositories much,
+# much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment following line if you want to  shown in the command execution time stamp 
+# in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
+# yyyy-mm-dd
+HIST_STAMPS="mm/dd/yyyy"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(vi-mode)
+
+source $ZSH/oh-my-zsh.sh
+
+OS=`uname`
+export EDITOR=vim
+if [[ "$OS" == "Darwin" ]]; then # MAC
+    export PATH=$PATH:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin
+    export PATH=$PATH:$HOME/local_build/bin:$HOME/local_build/neovim/bin
+    export PATH=$PATH:$HOME/gradle-2.4/bin
+    export PATH=$PATH:/usr/local/smlnj/bin
+
+    export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.6.13.0/
+    export AWS_ACCESS_KEY=
+    export AWS_SECRET_KEY=
+    export EC2_URL=ec2.us-east-1.amazonaws.com
+    export PATH=$PATH:$EC2_HOME/bin
+
+    # For GnuCash
+    export PERL_LOCAL_LIB_ROOT="$PERL_LOCAL_LIB_ROOT:/Users/fegin/perl5"
+    export PERL_MB_OPT="--install_base /Users/fegin/perl5"
+    export PERL_MM_OPT="INSTALL_BASE=/Users/fegin/perl5"
+    export PERL5LIB="/Users/fegin/perl5/lib/perl5:$PERL5LIB"
+    export PATH=$HOME/perl5/bin:$PATH
+    export PATH=$HOME/Library/Python/2.7/bin:$PATH
+
+    export JAVA_HOME=$(/usr/libexec/java_home)
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+else # Linux
+    export PATH=$HOME/.local/bin:$PATH
+    export PATH=/usr/local/cuda/bin:$PATH
+    export PATH=$PATH:$HOME/local_build/bin:$HOME/local_build/neovim/bin
+    export PATH=$PATH:$HOME/bin
+    export JAVA_HOME=$(/usr/libexec/java_home)
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/home/minjie/installs/lib:/home/minjie/scratch/cudnn/cudnn-v3/lib64:/home/minjie/scratch/cudnn/cudnn-v2/lib64
+fi
+
+# This is for vim CTRL-S
+vim()
+{
+    local ret STTYOPTS="$(stty -g)"
+    stty -ixon
+    command vim "$@"
+    ret=$?
+    stty "$STTYOPTS"
+    return "$ret"
+}
+vim() STTY=-ixon command vim "$@"
+
+#-----------------------------------------------------------
+# Option
+#-----------------------------------------------------------
+# 10 second wait if you do something that will delete everything.  I wish I'd had this before...
+setopt RM_STAR_WAIT
+# Keep echo "station" > station from clobbering station
+setopt NO_CLOBBER
+# Case insensitive globbing
+setopt NO_CASE_GLOB
+# Be Reasonable!
+setopt NUMERIC_GLOB_SORT
+# I don't know why I never set this before.
+setopt EXTENDED_GLOB
+
+#-----------------------------------------------------------
+# Alias
+#-----------------------------------------------------------
+globalias() {
+   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+     zle _expand_alias
+     zle expand-word
+   fi
+   zle self-insert
+}
+zle -N globalias
+bindkey " " globalias
+bindkey "^ " magic-space           # control-space to bypass completion
+bindkey -M isearch " " magic-space # normal space during searches
+
+# General
+alias ll='ls -l'
+alias his="history | grep"
+alias grep='grep --colour=auto'
+alias quote='print -P $(quote_info)'
+alias tmux='TERM=screen-256color-bce tmux'
+alias -g G="| grep"
+alias -g L="| less"
+
+# Goto shortcuts
+alias gh="cd ~"
+alias gw="cd ~/workspace/"
+alias gd="cd ~/Downloads/"
+alias gdp="cd ~/Dropbox/" 
+
+# GIT alias
+alias gitd="git diff"
+alias gitdn="git diff --name-only"
+alias gita="git add"
+
+ulimit -c unlimited
+
+if [[ -e ../private ]] then
+do
+    source ../private/zshrc
+done

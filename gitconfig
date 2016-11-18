@@ -1,0 +1,16 @@
+[user]
+	name = NAME
+	email = EMAIL
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	log = auto
+[push]
+	default = simple
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
