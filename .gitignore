@@ -1,3 +1,16 @@
+*.swp
+
 active_gitconfig
 private
 .cache
+vim/dein/repos/github.com/Lokaltog/
+vim/dein/repos/github.com/Shougo/vimproc.vim/
+vim/init.vim
+vim/dein/repos/github.com/Valloric/
+vim/dein/repos/github.com/bling/
+vim/dein/repos/github.com/embear/
+vim/dein/repos/github.com/flazz/
+vim/dein/repos/github.com/godlygeek/
+vim/dein/repos/github.com/majutsushi/
+vim/dein/repos/github.com/nathanaelkane/
+vim/dein/repos/github.com/scrooloose/
