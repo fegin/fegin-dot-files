@@ -10,6 +10,7 @@ if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
     echo -n "What's the path? "
     read private_path
     git clone $private_path private
+    ln -s `pwd`/private ~/.dot_files_private
 fi
 
 # Install .gitconfig
