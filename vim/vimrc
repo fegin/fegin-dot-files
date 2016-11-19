@@ -4,51 +4,44 @@
 let hostname = substitute(system('hostname'), '\n', '', '')
 
 "--------------------------------------------------------------------------- 
-" Vundle/Plugins installation
+" Dein plugin manager installation
 "--------------------------------------------------------------------------- 
-""" For Vundle and all other plugins installation.
-""" See https://github.com/gmarik/Vundle.vim/README.me for more detail.
-set nocompatible              " be iMproved, required
-filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+set nocompatible
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim 
+call dein#begin(expand('~/.vim/dein')) " plugins' root path
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/vimproc.vim', {
+    \ 'build': {
+    \     'windows': 'tools\\update-dll-mingw',
+    \     'cygwin': 'make -f make_cygwin.mak',
+    \     'mac': 'make -f make_mac.mak',
+    \     'linux': 'make',
+    \     'unix': 'gmake',
+    \    },
+    \ })
 " NerdTree
-Plugin 'scrooloose/nerdtree'
+call dein#add('scrooloose/nerdtree')
 " EasyMotion
-Plugin 'Lokaltog/vim-easymotion'
+call dein#add('Lokaltog/vim-easymotion')
 " NerdCommenter
-Plugin 'scrooloose/nerdcommenter'
+call dein#add('scrooloose/nerdcommenter')
 " tagbar
-Plugin 'majutsushi/tagbar'
+call dein#add('majutsushi/tagbar')
 " Tabular
-Plugin 'godlygeek/tabular'
+call dein#add('godlygeek/tabular')
 " Vim airline
-Plugin 'bling/vim-airline'
+call dein#add('bling/vim-airline')
 " Vim bufferline
-Plugin 'bling/vim-bufferline'
-" Vimproc (required by unite)
-Plugin 'Shougo/vimproc.vim'
-" unite
-Plugin 'Shougo/unite.vim'
-" multiple-cursors
-Plugin 'terryma/vim-multiple-cursors'
+call dein#add('bling/vim-bufferline')
 " Color schemems
-Plugin 'flazz/vim-colorschemes'
-" Language Tool
-Plugin 'vim-scripts/LanguageTool'
+call dein#add('flazz/vim-colorschemes')
 " Local vimrc
-Plugin 'embear/vim-localvimrc'
+call dein#add('embear/vim-localvimrc')
 "Indent Guides
-Plugin 'nathanaelkane/vim-indent-guides'
+call dein#add('nathanaelkane/vim-indent-guides')
 " YouCompleteMe
-"Plugin 'Valloric/YouCompleteMe'
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+call dein#add('Valloric/YouCompleteMe')
+call dein#end() 
 
 "--------------------------------------------------------------------------- 
 " General Settings 
@@ -56,7 +49,6 @@ call vundle#end()            " required
 filetype on             " Enable filetype detection
 filetype indent on      " Enable filetype-specific indenting
 filetype plugin on      " Enable filetype-specific plugins
-set nocompatible        " not compatible with the old-fashion vi mode
 set bs=2                " allow backspacing over everything in insert mode
 set ruler               " show the cursor position all the time
 set autoread            " auto read when file is changed from outside
@@ -78,6 +70,7 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
+
 "--------------------------------------------------------------------------- 
 " LANGUAGE SPECIFIC Settings
 "--------------------------------------------------------------------------- 
@@ -106,6 +99,7 @@ autocmd FileType Makefile set noexpandtab
 nmap <silent><F1> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 nmap <silent><F2> :!ctags -R .<CR>
 "  }
+"
 "--------------------------------------------------------------------------- 
 " USEFUL SHORTCUTS
 "--------------------------------------------------------------------------- 
@@ -158,7 +152,6 @@ set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
 
-
 "--------------------------------------------------------------------------- 
 " Plugin SETTINGS
 "--------------------------------------------------------------------------- 
@@ -176,11 +169,6 @@ let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#bufferline#overwrite_variables = 1
 set laststatus=2
-" }
-"--- UltiSnips {
-let g:UltiSnipsExpandTrigger="<c-t>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " }
 " --- TagBar {
 " toggle TagBar with F7
@@ -207,32 +195,15 @@ let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion = 1
 nnoremap <leader>jd ::YcmCompleter GoToDefinitionElseDeclaration<CR>
 " }
-" --- Syntastic {
-let g:syntastic_check_on_open = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:syntastic_enable_signs = 1
-" }
-" --- Python-mode {
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_completion = 0
-let g:pymode_lint_ignore = "E111,E114,E116,E265,E501,E701,W0611,W0612,C901"
-let g:pymode_options=0
-let g:pymode_options_max_line_length = 100
-" }
 " --- Local vimrc {
 let g:localvimrc_ask = 0
 "  }
-let g:languagetool_jar = "~/workspace/LanguageTool-2.6/languagetool-commandline.jar"
-" --- vim-mediawiki-editor {
-let g:mediawiki_editor_url = "localhost:8888"
-let g:mediawiki_editor_username = "fegin"
-let g:mediawiki_editor_password = "feginwiki"
-"  }
-
 
 "--------------------------------------------------------------------------- 
 " Misc
 "--------------------------------------------------------------------------- 
 " Color Scheme
 set background=dark
-colorscheme candy
+if dein#check_install(['flazz/vim-colorschemes'])
+    colorscheme candy
+endif
