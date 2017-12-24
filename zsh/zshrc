@@ -41,18 +41,10 @@ source $ZSH/oh-my-zsh.sh
 
 OS=`uname`
 export EDITOR=vim
+export JAVA_HOME=$(/usr/libexec/java_home)
+export NOTES_DIRECTORY=$HOME"/workspace/fegin-notes"
 if [[ "$OS" == "Darwin" ]]; then # MAC
     export PATH=$PATH:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin
-    export PATH=$PATH:$HOME/local_build/bin:$HOME/local_build/neovim/bin
-    export PATH=$PATH:$HOME/gradle-2.4/bin
-    export PATH=$PATH:/usr/local/smlnj/bin
-
-    export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.6.13.0/
-    export AWS_ACCESS_KEY=
-    export AWS_SECRET_KEY=
-    export EC2_URL=ec2.us-east-1.amazonaws.com
-    export PATH=$PATH:$EC2_HOME/bin
-
     # For GnuCash
     export PERL_LOCAL_LIB_ROOT="$PERL_LOCAL_LIB_ROOT:/Users/fegin/perl5"
     export PERL_MB_OPT="--install_base /Users/fegin/perl5"
@@ -60,16 +52,14 @@ if [[ "$OS" == "Darwin" ]]; then # MAC
     export PERL5LIB="/Users/fegin/perl5/lib/perl5:$PERL5LIB"
     export PATH=$HOME/perl5/bin:$PATH
     export PATH=$HOME/Library/Python/2.7/bin:$PATH
-
-    export JAVA_HOME=$(/usr/libexec/java_home)
-    export ANDROID_HOME=$HOME/Library/Android/sdk
 else # Linux
     export PATH=$HOME/.local/bin:$PATH
     export PATH=/usr/local/cuda/bin:$PATH
-    export PATH=$PATH:$HOME/local_build/bin:$HOME/local_build/neovim/bin
     export PATH=$PATH:$HOME/bin
-    export JAVA_HOME=$(/usr/libexec/java_home)
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/home/minjie/installs/lib:/home/minjie/scratch/cudnn/cudnn-v3/lib64:/home/minjie/scratch/cudnn/cudnn-v2/lib64
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/minjie/installs/lib
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/minjie/scratch/cudnn/cudnn-v3/lib64
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/minjie/scratch/cudnn/cudnn-v2/lib64
 fi
 
 # This is for vim CTRL-S
@@ -132,8 +122,6 @@ alias gdp="cd ~/Dropbox/"
 alias gitd="git diff"
 alias gitdn="git diff --name-only"
 alias gita="git add"
-
-ulimit -c unlimited
 
 if [ -e ./.dot_files_private ] ;then
     source ./.dot_files_private/zshrc
