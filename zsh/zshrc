@@ -41,7 +41,6 @@ source $ZSH/oh-my-zsh.sh
 
 OS=`uname`
 export EDITOR=vim
-export JAVA_HOME=$(/usr/libexec/java_home)
 export NOTES_DIRECTORY=$HOME"/workspace/fegin-notes"
 if [[ "$OS" == "Darwin" ]]; then # MAC
     export PATH=$PATH:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin
@@ -52,6 +51,7 @@ if [[ "$OS" == "Darwin" ]]; then # MAC
     export PERL5LIB="/Users/fegin/perl5/lib/perl5:$PERL5LIB"
     export PATH=$HOME/perl5/bin:$PATH
     export PATH=$HOME/Library/Python/2.7/bin:$PATH
+    export JAVA_HOME=$(/usr/libexec/java_home)
 else # Linux
     export PATH=$HOME/.local/bin:$PATH
     export PATH=/usr/local/cuda/bin:$PATH
