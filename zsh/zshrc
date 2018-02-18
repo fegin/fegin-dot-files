@@ -52,6 +52,7 @@ if [[ "$OS" == "Darwin" ]]; then # MAC
     export PATH=$HOME/perl5/bin:$PATH
     export PATH=$HOME/Library/Python/2.7/bin:$PATH
     export JAVA_HOME=$(/usr/libexec/java_home)
+    export MOSH_ESCAPE_KEY="1" # Basically disable local commands.
 else # Linux
     export PATH=$HOME/.local/bin:$PATH
     export PATH=/usr/local/cuda/bin:$PATH
