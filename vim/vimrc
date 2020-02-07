@@ -32,7 +32,7 @@ call dein#add('embear/vim-localvimrc')
 "Indent Guides
 call dein#add('nathanaelkane/vim-indent-guides')
 " YouCompleteMe
-call dein#add('Valloric/YouCompleteMe')
+" call dein#add('Valloric/YouCompleteMe')
 " Ctrlp
 call dein#add('ctrlpvim/ctrlp.vim')
 call dein#end() 

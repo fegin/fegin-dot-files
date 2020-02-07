@@ -41,26 +41,18 @@ source $ZSH/oh-my-zsh.sh
 
 OS=`uname`
 export EDITOR=vim
-export NOTES_DIRECTORY=$HOME"/workspace/fegin-notes"
 if [[ "$OS" == "Darwin" ]]; then # MAC
     export PATH=$PATH:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin
     # For GnuCash
-    export PERL_LOCAL_LIB_ROOT="$PERL_LOCAL_LIB_ROOT:/Users/fegin/perl5"
-    export PERL_MB_OPT="--install_base /Users/fegin/perl5"
-    export PERL_MM_OPT="INSTALL_BASE=/Users/fegin/perl5"
-    export PERL5LIB="/Users/fegin/perl5/lib/perl5:$PERL5LIB"
     export PATH=$HOME/perl5/bin:$PATH
     export PATH=$HOME/Library/Python/2.7/bin:$PATH
-    export JAVA_HOME=$(/usr/libexec/java_home)
+    #export JAVA_HOME=$(/usr/libexec/java_home)
     export MOSH_ESCAPE_KEY="1" # Basically disable local commands.
 else # Linux
     export PATH=$HOME/.local/bin:$PATH
     export PATH=/usr/local/cuda/bin:$PATH
     export PATH=$PATH:$HOME/bin
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/minjie/installs/lib
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/minjie/scratch/cudnn/cudnn-v3/lib64
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/minjie/scratch/cudnn/cudnn-v2/lib64
 fi
 
 # This is for vim CTRL-S
@@ -112,12 +104,6 @@ alias quote='print -P $(quote_info)'
 alias tmux='TERM=screen-256color-bce tmux'
 alias -g G="| grep"
 alias -g L="| less"
-
-# Goto shortcuts
-alias gh="cd ~"
-alias gw="cd ~/workspace/"
-alias gd="cd ~/Downloads/"
-alias gdp="cd ~/Dropbox/" 
 
 # GIT alias
 alias gitd="git diff"
