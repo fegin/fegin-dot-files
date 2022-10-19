@@ -1,16 +1,11 @@
 [user]
-	name = NAME
-	email = EMAIL
-[color]
-	diff = auto
-	status = auto
-	branch = auto
-	log = auto
-[push]
-	default = simple
+  name = Chien-Chin Huang
+  email = chienchin@fb.com
+[submodule]
+  recurse = true
+[credential]
+  helper = cache --timeout=31536000 # cache PAT(personal auth) for one year
 [diff]
 	tool = vimdiff
-[difftool]
-	prompt = false
-[alias]
-	d = difftool
+[core]
+	editor = vim
