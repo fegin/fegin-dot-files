@@ -213,6 +213,7 @@ let g:localvimrc_ask = 0
 let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_cmd = 'CtrlPMRU'
+nmap <leader>t :CtrlP<CR>
 let g:ctrlp_custom_ignore = {
   \ 'dir': '\.git$\|\.hg$\|\.svn$\|\.yardoc$\|build$',
   \ 'file': '\.exe$\|\.so$\|\.dat$\|\.o$\|\.d$'
