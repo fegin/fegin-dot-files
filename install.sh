@@ -1,49 +1,26 @@
-#!/usr/bin/env bash
-
-OS=`uname`
-git submodule update --init
-
-# Install private repo
-echo -n "Do you have a private repo to install first? (y/n) "
-read answer
-if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
-    echo -n "What's the path? "
-    read private_path
-    git clone $private_path private
-    ln -s `pwd`/private ~/.dot_files_private
-fi
-
-# Install .gitconfig
-echo -n "User name for GIT: "
-read git_username
-echo -n "Email for GIT: "
-read git_email
-cp gitconfig active_gitconfig
-if [[ "$OS" == "Darwin" ]]; then # MAC
-    back_extension='.bak'
+if [ ! -e ~/feginconf.sh ];
+then
+  echo "This server is not setup yet. The configurations will be soft linked to ~."
+  echo ""
+  git clone https://github.com/ohmyzsh/ohmyzsh && mv ohmyzsh ~/.oh-my-zsh
+  git clone https://github.com/rupa/z && mv z/z.sh ~/z.sh
+  rm -rf z
+  cp ~/fbcode/scripts/chienchin/work_configs/candy.zsh-theme ~/.oh-my-zsh/themes
+  rm -f ~/.tmux.conf
+  ln -s ./tmux.conf ~/.tmux.conf
+  rm -f ~/.vimrc
+  ln -s ./vim/vimrc ~/.vimrc
+  rm -f ~/.zshrc
+  ln -s zshrc ~/.zshrc
+  rm -f ~/.gitconfig
+  ln -s ./gitconfig ~/.gitconfig
+  mkdir -p ~/.vim/bundles
+  # shellcheck disable=SC2046
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+  sh installer.sh ~/.vim/bundles > /dev/null && rm installer.sh
+  vim +"call dein#install()" +qall
+  echo ""
+  echo "FeginConf is installed"
 else
-    back_extension=''
+  echo "This server has already setup."
 fi
-sed -i $back_extension "s/NAME/${git_username}/g" active_gitconfig
-sed -i $back_extension "s/EMAIL/${git_email}/g" active_gitconfig
-rm active_gitconfig.bak
-ln -s `pwd`/active_gitconfig ~/.gitconfig
-
-# Install .tmux.conf
-ln -s `pwd`/tmux.conf ~/.tmux.conf
-
-# Install ZSH
-ln -s `pwd`/zsh/zshrc ~/.zshrc
-ln -s `pwd`/zsh/oh-my-zsh ~/.oh-my-zsh
-
-# Install VIM dot files
-ln -s `pwd`/vim ~/.vim
-ln -s `pwd`/vim/vimrc ~/.vimrc
-vim +"call dein#install()" +qall
-#cd vim
-#cd ~/.vim/bundle/YouCompleteMe
-#./install.sh --clang-completer
-#cd -
-#cd ~/.vim/bundle/vimproc.vim
-#make
-#cd -
